@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Kotlin Scope Functions, Chandler&#39;s Blog">
+    <meta name="keywords" content="What is git-cherry-pick, Chandler&#39;s Blog">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Kotlin Scope Functions | Chandler&#39;s Blog</title>
+    <title>What is git-cherry-pick | Chandler&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -210,7 +210,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Kotlin Scope Functions</h1>
+                    <h1 class="description center-align post-title">What is git-cherry-pick</h1>
                 </div>
             </div>
         </div>
@@ -326,8 +326,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Kotlin/">
-                                <span class="chip bg-color">Kotlin</span>
+                            <a href="/tags/Git/">
+                                <span class="chip bg-color">Git</span>
                             </a>
                         
                     </div>
@@ -351,7 +351,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-05-23
+                    2021-06-14
                 </div>
                 
 
@@ -375,153 +375,42 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="什么是Scope-Funtion-作用域函数"><a href="#什么是Scope-Funtion-作用域函数" class="headerlink" title="什么是Scope Funtion(作用域函数)"></a>什么是Scope Funtion(作用域函数)</h2><p>Kotlin 标准库包含几个函数，它们的唯一目的是在对象的上下文中执行代码块。当对一个对象调用这样的函数并提供一个 lambda 表达式时，<br>它会形成一个临时作用域。在此作用域中，可以访问该对象而无需其名称。这些函数称为作用域函数。共有以下五种：let、run、with、apply 以及 also。</p>
-<p>这些函数基本上做了同样的事情：在一个对象上执行一个代码块。不同的是这个对象在块中如何使用，以及整个表达式的结果是什么。</p>
-<p>下面是作用域函数的典型用法:</p>
-<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token function">Person</span><span class="token punctuation">(</span><span class="token string">"Alice"</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token string">"Amsterdam"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">let</span> <span class="token punctuation">{</span>
-    <span class="token function">println</span><span class="token punctuation">(</span>it<span class="token punctuation">)</span>
-    it<span class="token punctuation">.</span><span class="token function">moveTo</span><span class="token punctuation">(</span><span class="token string">"London"</span><span class="token punctuation">)</span>
-    it<span class="token punctuation">.</span><span class="token function">incrementAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-    <span class="token function">println</span><span class="token punctuation">(</span>it<span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>该例子的输出如下：</p>
-<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">Person(name=Alice, age=20, city=Amsterdam)
-Person(name=Alice, age=21, city=London)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>通过上面的例子可以看出，作用域函数虽然没有引入新的技术，但是在操作对象时，使我们的代码更加简洁易读</p>
-<hr>
-<h2 id="五种作用域函数的区别"><a href="#五种作用域函数的区别" class="headerlink" title="五种作用域函数的区别"></a>五种作用域函数的区别</h2><table>
-<thead>
-<tr>
-<th align="center">Function</th>
-<th align="center">Object reference</th>
-<th align="center">Return value</th>
-<th align="center">Is extension function</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">let</td>
-<td align="center">it</td>
-<td align="center">Lambda result</td>
-<td align="center">✅</td>
-</tr>
-<tr>
-<td align="center">run</td>
-<td align="center">this</td>
-<td align="center">Lambda result</td>
-<td align="center">✅</td>
-</tr>
-<tr>
-<td align="center">run</td>
-<td align="center">—</td>
-<td align="center">Lambda result</td>
-<td align="center">❌ : called without the context object</td>
-</tr>
-<tr>
-<td align="center">with</td>
-<td align="center">this</td>
-<td align="center">Lambda result</td>
-<td align="center">❌ : Takes the context object as an argument</td>
-</tr>
-<tr>
-<td align="center">apply</td>
-<td align="center">this</td>
-<td align="center">Context object</td>
-<td align="center">✅</td>
-</tr>
-<tr>
-<td align="center">also</td>
-<td align="center">it</td>
-<td align="center">Context object</td>
-<td align="center">✅</td>
-</tr>
-</tbody></table>
-<p>上表列举了五种作用域函数的主要区别。</p>
-<ul>
-<li>上下文对象：<ul>
-<li>this: run、with 以及 apply 通过关键字 this 引用上下文对象。因此，在它们的 lambda 表达式中可以像在普通的类函数中一样访问上下文对象。</li>
-<li>it: let 及 also 将上下文对象作为 lambda 表达式参数。如果没有指定参数名，对象可以用隐式默认名称 it 访问。</li>
-</ul>
+                <pre class="line-numbers language-cherry-pick```在只需要合并部分commit到另一个分支时使用" data-language="cherry-pick```在只需要合并部分commit到另一个分支时使用"><code class="language-cherry-pick```在只需要合并部分commit到另一个分支时使用">## SYNOPSIS
+```shell
+git cherry-pick [--edit] [-n] [-m parent-number] [-s] [-x] [--ff]
+		  [-S[&lt;keyid&gt;]] &lt;commit&gt;…​
+git cherry-pick (--continue | --skip | --abort | --quit)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="EXAMPLES"><a href="#EXAMPLES" class="headerlink" title="EXAMPLES"></a>EXAMPLES</h2><h3 id="单个提交"><a href="#单个提交" class="headerlink" title="单个提交"></a>单个提交</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git cherry-pick &lt;commitHash&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>将指定的提交<code>commitHash</code>，应用于当前分支</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git cherry-pick &lt;branchName&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>当参数为分支名称时，表示转移该分支的最新提交</p>
+<h3 id="多个提交"><a href="#多个提交" class="headerlink" title="多个提交"></a>多个提交</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git cherry-pick &lt;HashA&gt; &lt;HashB&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>上面的命令将 A 和 B 两个提交应用到当前分支。这会在当前分支生成两个对应的新提交</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git cherry-pick A..B <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>上面的命令可以转移从 A 到 B 的所有提交。它们必须按照正确的顺序放置：提交 A 必须早于提交 B，否则命令将失败，但不会报错。</p>
+<p>注意，使用上面的命令，提交 A 将不会包含在 Cherry pick 中。如果要包含提交 A，可以使用下面的语法。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git cherry-pick A^..B <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h2><ul>
+<li><p><code>-e，--edit</code></p>
+<p>  打开外部编辑器，编辑提交信息。</p>
 </li>
-<li>返回值<ul>
-<li>apply 及 also 返回上下文对象</li>
-<li>let、run 及 with 返回 lambda 表达式结果</li>
-</ul>
+<li><p><code>-n，--no-commit</code></p>
+<p>  只更新工作区和暂存区，不产生新的提交。</p>
+</li>
+<li><p><code>-x</code></p>
+<p>  在提交信息的末尾追加一行(cherry picked from commit …)，方便以后查到这个提交是如何产生的。</p>
+</li>
+<li><p><code>-s，--signoff</code></p>
+<p>  在提交信息的末尾追加一行操作者的签名，表示是谁进行了这个操作。</p>
+</li>
+<li><p><code>-m parent-number，--mainline parent-number</code></p>
+<p>  如果原始提交是一个合并节点，来自于两个分支的合并，那么 Cherry pick 默认将失败，因为它不知道应该采用哪个分支的代码变动。</p>
+<p>  -m配置项告诉 Git，应该采用哪个分支的变动。它的参数parent-number是一个从1开始的整数，代表原始提交的父分支编号。</p>
+<h2 id="SUMMARY"><a href="#SUMMARY" class="headerlink" title="SUMMARY"></a>SUMMARY</h2><p><code>git merge</code> 是基于两个分支上的最新内容到有冲突的内容之间的所有 commit 进行合并，之后会形成一个新的 commit 记录，将两个分支重新关联起来。</p>
 </li>
 </ul>
-<hr>
-<h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><p>根据预期目的选择作用域函数的简短指南：</p>
-<ul>
-<li>对一个非空（non-null）对象执行 lambda 表达式：let</li>
-<li>将表达式作为变量引入为局部作用域中：let</li>
-<li>对象配置：apply</li>
-<li>对象配置并且计算结果：run</li>
-<li>在需要表达式的地方运行语句：非扩展的 run</li>
-<li>附加效果：also</li>
-<li>一个对象的一组函数调用：with<h3 id="❖-let"><a href="#❖-let" class="headerlink" title="❖ let"></a>❖ let</h3><kbd>let</kbd>可用于在调用链的结果上调用一个或多个函数。例如，以下代码打印对集合的两个操作的结果：<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">val</span> numbers <span class="token operator">=</span> <span class="token function">mutableListOf</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">,</span> <span class="token string">"four"</span><span class="token punctuation">,</span> <span class="token string">"five"</span><span class="token punctuation">)</span>
-<span class="token keyword">val</span> resultList <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">map</span> <span class="token punctuation">{</span> it<span class="token punctuation">.</span>length <span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">filter</span> <span class="token punctuation">{</span> it <span class="token operator">&gt;</span> <span class="token number">3</span> <span class="token punctuation">}</span>
-<span class="token function">println</span><span class="token punctuation">(</span>resultList<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-使用<kbd>let</kbd>可以写成这样：<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">val</span> numbers <span class="token operator">=</span> <span class="token function">mutableListOf</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">,</span> <span class="token string">"four"</span><span class="token punctuation">,</span> <span class="token string">"five"</span><span class="token punctuation">)</span>
-numbers<span class="token punctuation">.</span><span class="token function">map</span> <span class="token punctuation">{</span> it<span class="token punctuation">.</span>length <span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">filter</span> <span class="token punctuation">{</span> it <span class="token operator">&gt;</span> <span class="token number">3</span> <span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">let</span> <span class="token punctuation">{</span> 
-    <span class="token function">println</span><span class="token punctuation">(</span>it<span class="token punctuation">)</span>
-    <span class="token comment">// 如果需要可以调用更多函数</span>
-<span class="token punctuation">}</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-从我个人的理解来说，<kbd>let</kbd>与<kbd>also</kbd>类似，可以看作对上下文对象做一些额外的操作，但是<kbd>let</kbd>的返回值是Lambda表达式的结果，<br>故上面的例子其实并表意，上述例子将<kbd>let</kbd>直接替换成<kbd>also</kbd>也并没有什么区别,下面例子更清晰，在对numbers做了筛选后，我们<kbd>让</kbd>它的每个元素变成大写并返回<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">val</span> numbers <span class="token operator">=</span> <span class="token function">mutableListOf</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">,</span> <span class="token string">"four"</span><span class="token punctuation">,</span> <span class="token string">"five"</span><span class="token punctuation">)</span>
-<span class="token keyword">val</span> modifiedNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">filter</span> <span class="token punctuation">{</span> it<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">3</span> <span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">let</span> <span class="token punctuation">{</span>
-  it<span class="token punctuation">.</span><span class="token function">map</span> <span class="token punctuation">{</span> s <span class="token operator">-&gt;</span> s<span class="token punctuation">.</span><span class="token function">uppercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token function">println</span><span class="token punctuation">(</span>modifiedNumbers<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-如果此时想用<kbd>also</kbd>得到相似结果,可以修改成如下示例，<kbd>also</kbd>只是执行了区域中的代码，返回值仍是上下文对象<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">val</span> numbers <span class="token operator">=</span> <span class="token function">mutableListOf</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">,</span> <span class="token string">"four"</span><span class="token punctuation">,</span> <span class="token string">"five"</span><span class="token punctuation">)</span>
-<span class="token keyword">var</span> modifiedNumbers <span class="token operator">=</span> listOf<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-numbers<span class="token punctuation">.</span><span class="token function">filter</span> <span class="token punctuation">{</span> it<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">3</span> <span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">also</span> <span class="token punctuation">{</span>
-  modifiedNumbers <span class="token operator">=</span> it<span class="token punctuation">.</span><span class="token function">map</span> <span class="token punctuation">{</span> s <span class="token operator">-&gt;</span> s<span class="token punctuation">.</span><span class="token function">uppercase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token function">println</span><span class="token punctuation">(</span>modifiedNumbers<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="❖-also"><a href="#❖-also" class="headerlink" title="❖ also"></a>❖ also</h3><pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">val</span> numbers <span class="token operator">=</span> <span class="token function">mutableListOf</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">)</span>
-numbers
-    <span class="token punctuation">.</span><span class="token function">also</span> <span class="token punctuation">{</span> <span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"The list elements before adding new one: <span class="token interpolation variable">$it</span>"</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
-    <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">"four"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<kbd>also</kbd>的例子很简单，再执行add操作前<kbd>也</kbd>需做一次print<h3 id="❖-with"><a href="#❖-with" class="headerlink" title="❖ with"></a>❖ with</h3><kbd>with</kbd>是一个非扩展函数，上下文对象作为参数传递，在lambda表达式内部，它可以作为接收者（this）使用。返回值是lambda表达式结果。<kbd>with</kbd>可以理解为“<em>对于这个对象，执行以下操作。</em>”<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">val</span> numbers <span class="token operator">=</span> <span class="token function">mutableListOf</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">)</span>
-<span class="token keyword">val</span> firstAndLast <span class="token operator">=</span> <span class="token function">with</span><span class="token punctuation">(</span>numbers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token string">"The first element is <span class="token interpolation"><span class="token delimiter variable">${</span><span class="token function">first</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token delimiter variable">}</span></span>,"</span> <span class="token operator">+</span>
-    <span class="token string">" the last element is <span class="token interpolation"><span class="token delimiter variable">${</span><span class="token function">last</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token delimiter variable">}</span></span>"</span>
-<span class="token punctuation">}</span>
-<span class="token function">println</span><span class="token punctuation">(</span>firstAndLast<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-执行结果如下：<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">The first element is one, the last element is three<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<h3 id="❖-run"><a href="#❖-run" class="headerlink" title="❖ run"></a>❖ run</h3><h4 id="●-非扩展的run"><a href="#●-非扩展的run" class="headerlink" title="● 非扩展的run"></a>● 非扩展的run</h4>非扩展<kbd>run</kbd>可以使你在需要表达式的地方执行一个由多个语句组成的块。<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">val</span> hexNumberRegex <span class="token operator">=</span> run <span class="token punctuation">{</span>
-    <span class="token keyword">val</span> digits <span class="token operator">=</span> <span class="token string">"0-9"</span>
-    <span class="token keyword">val</span> hexDigits <span class="token operator">=</span> <span class="token string">"A-Fa-f"</span>
-    <span class="token keyword">val</span> sign <span class="token operator">=</span> <span class="token string">"+-"</span>
-
-    <span class="token function">Regex</span><span class="token punctuation">(</span><span class="token string">"[<span class="token interpolation variable">$sign</span>]?[<span class="token interpolation variable">$digits</span><span class="token interpolation variable">$hexDigits</span>]+"</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">for</span> <span class="token punctuation">(</span>match <span class="token keyword">in</span> hexNumberRegex<span class="token punctuation">.</span><span class="token function">findAll</span><span class="token punctuation">(</span><span class="token string">"+1234 -FFFF not-a-number"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token function">println</span><span class="token punctuation">(</span>match<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="●-扩展的run"><a href="#●-扩展的run" class="headerlink" title="● 扩展的run"></a>● 扩展的run</h4><kbd>run</kbd>和<kbd>with</kbd>做同样的事情，但是调用方式和<kbd>let</kbd>一样——作为上下文对象的扩展函数.</li>
-</ul>
-<p>当 lambda 表达式同时包含对象初始化和返回值的计算时，run 很有用。</p>
-<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">val</span> service <span class="token operator">=</span> <span class="token function">MultiportService</span><span class="token punctuation">(</span><span class="token string">"https://example.kotlinlang.org"</span><span class="token punctuation">,</span> <span class="token number">80</span><span class="token punctuation">)</span>
-
-<span class="token keyword">val</span> result <span class="token operator">=</span> service<span class="token punctuation">.</span><span class="token function">run</span> <span class="token punctuation">{</span>
-    port <span class="token operator">=</span> <span class="token number">8080</span>
-    <span class="token function">query</span><span class="token punctuation">(</span><span class="token function">prepareRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" to port <span class="token interpolation variable">$port</span>"</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
-
-<span class="token comment">// 同样的代码如果用 let() 函数来写:</span>
-<span class="token keyword">val</span> letResult <span class="token operator">=</span> service<span class="token punctuation">.</span><span class="token function">let</span> <span class="token punctuation">{</span>
-    it<span class="token punctuation">.</span>port <span class="token operator">=</span> <span class="token number">8080</span>
-    it<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>it<span class="token punctuation">.</span><span class="token function">prepareRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" to port <span class="token interpolation"><span class="token delimiter variable">${</span>it<span class="token punctuation">.</span>port<span class="token delimiter variable">}</span></span>"</span><span class="token punctuation">)</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="❖-apply"><a href="#❖-apply" class="headerlink" title="❖ apply"></a>❖ apply</h3><p><kbd>apply</kbd>的常见情况是对象配置，可以理解为“<em>将以下赋值操作应用于对象</em>”</p>
-<pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">val</span> adam <span class="token operator">=</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token string">"Adam"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">apply</span> <span class="token punctuation">{</span>
-    age <span class="token operator">=</span> <span class="token number">32</span>
-    city <span class="token operator">=</span> <span class="token string">"London"</span>        
-<span class="token punctuation">}</span>
-<span class="token function">println</span><span class="token punctuation">(</span>adam<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<hr>
-<p>参考资料：</p>
-<p>kotlin docs: <a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/scope-functions.html">https://kotlinlang.org/docs/scope-functions.html</a></p>
+<p><code>git rebase </code>正如它的中文名字“变基操作”一样，会将所在分支新添加的内容，增加到目的分支，并保证了 commit 提交记录的串行性。简单来说就是，会以目的分支（一般是 master）为基础，逐一的将当前分支的 commit 记录应用。需要注意的是，在应用时并不是直接应用在 master 分支，而是将 master 分支整体拷贝，然后将当前 commit 应用在拷贝后的分支上。</p>
+<p><code>git cherry-pick</code> 和 rebase 操作正好相反，会以当前的分支为基础，然后将 commit 一个个的拿过来应用。形成的 commit 记录也是串行的。</p>
 
                 
             </div>
@@ -548,7 +437,7 @@ numbers
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://shitlsh.github.io/2021/05/23/kotlin-scope-functions/">https://shitlsh.github.io/2021/05/23/kotlin-scope-functions/</a>
+                    <a href="https://shitlsh.github.io/2021/06/14/what-is-git-cherry-pick/">https://shitlsh.github.io/2021/06/14/what-is-git-cherry-pick/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -586,8 +475,8 @@ numbers
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Kotlin/">
-                                    <span class="chip bg-color">Kotlin</span>
+                                <a href="/tags/Git/">
+                                    <span class="chip bg-color">Git</span>
                                 </a>
                             
                         </div>
@@ -633,9 +522,10 @@ numbers
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/06/14/what-is-git-cherry-pick/">
                     <div class="card-image">
@@ -653,9 +543,9 @@ numbers
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-06-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -668,6 +558,7 @@ numbers
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -683,7 +574,7 @@ numbers
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2021/05/23/kotlin-scope-functions/">
@@ -717,7 +608,6 @@ numbers
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
