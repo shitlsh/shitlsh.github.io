@@ -375,11 +375,13 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <pre class="line-numbers language-cherry-pick```在只需要合并部分commit到另一个分支时使用" data-language="cherry-pick```在只需要合并部分commit到另一个分支时使用"><code class="language-cherry-pick```在只需要合并部分commit到另一个分支时使用">## SYNOPSIS
+                <pre class="line-numbers language-cherry-pick```在只需要合并部分commit到另一个分支时使用" data-language="cherry-pick```在只需要合并部分commit到另一个分支时使用"><code class="language-cherry-pick```在只需要合并部分commit到另一个分支时使用">
+## SYNOPSIS
+
 ```shell
 git cherry-pick [--edit] [-n] [-m parent-number] [-s] [-x] [--ff]
 		  [-S[&lt;keyid&gt;]] &lt;commit&gt;…​
-git cherry-pick (--continue | --skip | --abort | --quit)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+git cherry-pick (--continue | --skip | --abort | --quit)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h2 id="EXAMPLES"><a href="#EXAMPLES" class="headerlink" title="EXAMPLES"></a>EXAMPLES</h2><h3 id="单个提交"><a href="#单个提交" class="headerlink" title="单个提交"></a>单个提交</h3><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git cherry-pick &lt;commitHash&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>将指定的提交<code>commitHash</code>，应用于当前分支</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">git cherry-pick &lt;branchName&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -406,11 +408,16 @@ git cherry-pick (--continue | --skip | --abort | --quit)<span aria-hidden="true"
 <li><p><code>-m parent-number，--mainline parent-number</code></p>
 <p>  如果原始提交是一个合并节点，来自于两个分支的合并，那么 Cherry pick 默认将失败，因为它不知道应该采用哪个分支的代码变动。</p>
 <p>  -m配置项告诉 Git，应该采用哪个分支的变动。它的参数parent-number是一个从1开始的整数，代表原始提交的父分支编号。</p>
-<h2 id="SUMMARY"><a href="#SUMMARY" class="headerlink" title="SUMMARY"></a>SUMMARY</h2><p><code>git merge</code> 是基于两个分支上的最新内容到有冲突的内容之间的所有 commit 进行合并，之后会形成一个新的 commit 记录，将两个分支重新关联起来。</p>
 </li>
 </ul>
-<p><code>git rebase </code>正如它的中文名字“变基操作”一样，会将所在分支新添加的内容，增加到目的分支，并保证了 commit 提交记录的串行性。简单来说就是，会以目的分支（一般是 master）为基础，逐一的将当前分支的 commit 记录应用。需要注意的是，在应用时并不是直接应用在 master 分支，而是将 master 分支整体拷贝，然后将当前 commit 应用在拷贝后的分支上。</p>
-<p><code>git cherry-pick</code> 和 rebase 操作正好相反，会以当前的分支为基础，然后将 commit 一个个的拿过来应用。形成的 commit 记录也是串行的。</p>
+<h2 id="SUMMARY"><a href="#SUMMARY" class="headerlink" title="SUMMARY"></a>SUMMARY</h2><ul>
+<li><p><code>git merge</code> 是基于两个分支上的最新内容到有冲突的内容之间的所有 commit 进行合并，之后会形成一个新的 commit 记录，将两个分支重新关联起来。</p>
+</li>
+<li><p><code>git rebase </code>正如它的中文名字“变基操作”一样，会将所在分支新添加的内容，增加到目的分支，并保证了 commit 提交记录的串行性。简单来说就是，会以目的分支（一般是 master）为基础，逐一的将当前分支的 commit 记录应用。需要注意的是，在应用时并不是直接应用在 master 分支，而是将 master 分支整体拷贝，然后将当前 commit 应用在拷贝后的分支上。</p>
+</li>
+<li><p><code>git cherry-pick</code> 和 rebase 操作正好相反，会以当前的分支为基础，然后将 commit 一个个的拿过来应用。形成的 commit 记录也是串行的。</p>
+</li>
+</ul>
 
                 
             </div>
